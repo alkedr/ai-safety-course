@@ -1,4 +1,4 @@
-*.secret
+.secrets/
 __pycache__/
 logs/
 venv/
