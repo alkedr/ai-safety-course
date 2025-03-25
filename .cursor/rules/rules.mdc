@@ -1,0 +1,19 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Running code
+
+Use Python venv in `venv/` dir.
+Use `inspect` tool to run evals.
+Use `--model=openai/gpt-4o-mini` unless instructed otherwise.
+
+You will need an OpenAI API token. Load it from `.secrets/openai.key`. Don't read this file directly, load it into OPENAI_API_KEY environment variables.
+There is also `.secrets/anthropic.key` for ANTHROPIC_API_KEY environment variable.
+
+
+# Reading the docs
+
+When in doubt, consult Inspect AI docs at https://inspect.ai-safety-institute.org.uk/ or Inspect AI source code in `venv/lib/python3.10/site-packages/inspect_ai/` directory.
+
