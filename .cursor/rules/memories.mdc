@@ -1,0 +1,45 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+- Inspect AI's task framework simplifies implementing evaluations compared to custom API calls through its built-in capabilities for dataset creation, model interaction, and scoring.
+
+- The `@task` decorator in Inspect AI allows defining evaluations with three main components: dataset, solver, and scorer.
+
+- The official Inspect AI documentation is available at https://inspect.aisi.org.uk/ and can be accessed with `curl`.
+
+- Main chapters in the Inspect AI documentation:
+  - Tutorial: ./tutorial.html
+  - Tasks: ./tasks.html
+  - Datasets: ./datasets.html
+  - Solvers: ./solvers.html
+  - Scorers: ./scorers.html
+  - Tools: ./tools.html (with Custom Tools: ./tools-custom.html and Standard Tools: ./tools-standard.html)
+  - Models: ./models.html
+  - Providers: ./providers.html
+  - Agents: ./agents.html (with Multi Agent: ./multi-agent.html, Custom Agents: ./agent-custom.html)
+  - Sandboxing: ./sandboxing.html
+  - Eval Logs: ./eval-logs.html
+  - Eval Sets: ./eval-sets.html
+  - Options: ./options.html
+
+- The Inspect AI source code is located at `venv/lib/python3.10/site-packages/inspect_ai/` with key modules including solver/, scorer/, dataset/, tool/, and model/.
+
+- For accessing online documentation of any library: 1) Use `curl` to access the documentation URL; 2) Extract main sections and chapters; 3) Check HTTP status codes to verify pages exist; 4) Store the information in memories for future reference.
+
+- The `inspect --help` command provides complete documentation for all Inspect AI CLI commands and parameters, making it a useful reference for discovering correct parameter names and available functionality.
+
+- When implementing error handling, it's better to fail early with clear errors than to hide issues in warning messages and continue execution with potentially invalid state or data.
+
+- Inspect AI evaluation logs are stored as zip archives with a .eval extension, and can be examined using:
+  - `inspect log dump [logfile.eval]` to print the entire log file contents as JSON
+  - `unzip -p [logfile.eval] samples/[sample_id]_epoch_[epoch_number].json | python -m json.tool` to extract and view specific sample data
+  - `grep` with various patterns to find specific content in the extracted data
+
+- When encountering errors or confusion with Inspect AI, first check the documentation at https://inspect.aisi.org.uk/ and use `--help` flags with commands to understand correct options and parameters.
+
+- Inspect AI uses specific model naming patterns for different providers, such as "anthropic/claude-3-5-sonnet-latest" for Claude 3.5 Sonnet and "openai/gpt-4o-mini" for GPT-4o Mini.
+
+- The `--limit` parameter in Inspect AI can limit the number of samples processed during an evaluation, which is useful for testing: `inspect eval task_file.py --model=model_name --limit=2`
