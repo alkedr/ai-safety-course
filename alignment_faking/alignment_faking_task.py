@@ -7,9 +7,8 @@ from dotenv import load_dotenv
 import re
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
-from inspect_ai.solver import generate, system_message, chain
+from inspect_ai.solver import generate, system_message, chain, TaskState
 from inspect_ai.scorer import scorer, Score, Target, Metric, SampleScore, metric
-from inspect_ai.solver import TaskState
 
 
 load_dotenv()
