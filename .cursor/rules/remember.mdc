@@ -5,7 +5,7 @@ alwaysApply: true
 ---
 ## Remembering facts
 
-`.cursor/rules/memories.mdc` file will be shown to you before each interaction with the user. It contains a Markdown-style bulleted list of facts that the user or the previous instances of you thought would be helpful to know in the future.
+`.cursor/rules/memories.mdc` file will be shown to you before each interaction with the user. It contains a Markdown-style bulleted list of facts that the user or the previous instances of you thought would be helpful to know in the future. It also contains some metadata a the start, don't change it when you are modifying the file.
 
 The user may tell you to remember something specific using the keyword "remember", for example "remember that the sky is blue". In that case you should add or modify an entry in the `.cursor/rules/memories.mdc` file.
 
