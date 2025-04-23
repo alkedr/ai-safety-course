@@ -1,3 +1,6 @@
 [submodule "alignment_faking/llm-attacks"]
 	path = alignment_faking/llm-attacks
 	url = https://github.com/llm-attacks/llm-attacks
+[submodule "alignment_faking/alignment_faking_public"]
+	path = alignment_faking/alignment_faking_public
+	url = https://github.com/redwoodresearch/alignment_faking_public

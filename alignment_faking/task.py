@@ -12,7 +12,7 @@ from inspect_ai.model import ChatMessageUser
 load_dotenv()
 
 
-def load_system_prompt(path="prompt_atn_honly_with_examples.txt"):
+def load_system_prompt(path="alignment_faking_public/model_organism_honly_prompts/prompt_atn_honly_with_examples.txt"):
     return Path(path).read_text()
 
 
