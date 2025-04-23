@@ -1,5 +1,3 @@
-import io
-import httpx
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
@@ -19,8 +17,7 @@ def load_system_prompt(path="prompt_atn_honly_with_examples.txt"):
 
 
 def load_harmful_behaviors():
-    url = "https://raw.githubusercontent.com/llm-attacks/llm-attacks/main/data/advbench/harmful_behaviors.csv"
-    df = pd.read_csv(io.StringIO(httpx.get(url).text))
+    df = pd.read_csv("llm-attacks/data/advbench/harmful_behaviors.csv")
     return [d["goal"] for d in df.to_dict(orient="records")]
 
 
