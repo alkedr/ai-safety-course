@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
 - Inspect:
@@ -33,3 +33,7 @@ alwaysApply: true
   - Other:
     - Model names follow provider patterns (e.g., "anthropic/claude-3-5-sonnet-latest", "openai/gpt-4o-mini").
     - Use `--limit=N` for testing subsets of samples.
+    - The command to run an evaluation is `inspect eval`, not `inspect run`.
+    - The `inspect eval` command requires the `--model` argument.
+    - The command to list tasks is `inspect list tasks [path]`.
+    - Task identifiers use the format `path/to/file.py@task_function_name`.
