@@ -26,6 +26,9 @@ def multi_turn_multiple_choice(*, max_turns: int, **kwargs) -> Solver:
                 state.messages.append(ChatMessageUser(content="<NEXT/>"))
                 state = await generate(state, cache_prompt=False)
 
+            if state.output and "<OUTPUT>" in state.output.completion:
+                state.output.completion = state.output.completion[state.output.completion.rfind("<OUTPUT>"):]
+
             return state
 
         return await multiple_choice(**kwargs)(outer_state, multi_turn_generate)
