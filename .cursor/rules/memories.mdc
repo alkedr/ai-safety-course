@@ -41,3 +41,29 @@ alwaysApply: true
 - For proxying arguments, robustly use `*args` and `**kwargs` in both the wrapper's definition and its call to the wrapped function.
 - Pay close attention to functions that return other callables, as this often enables direct and flexible composition.
 - Ensure wrappers respect keyword-only arguments of the functions they call, often naturally handled if the wrapper itself uses `**kwargs` for pass-through and is called with keywords.
+- `inspect-ai` `@solver` decorated functions are typically *factories* that return an `async def solve(state: TaskState, generate: Generate) -> TaskState` function. (Figured out by observing user code and inspecting `inspect-ai` source for `multiple_choice`).
+- The `generate: Generate` argument passed to an `inspect-ai` solver's inner `solve` function is a callable dependency that can be wrapped or replaced to customize model interaction behavior (like adding multi-turn logic) without reimplementing the entire solver. (Figured out through user guidance and their successful refactoring).
+- When needing to modify an existing `inspect-ai` solver's behavior, first consider if the modification can be achieved by wrapping/replacing its `generate` function, rather than re-implementing the solver's primary logic. This leverages composition. (Figured out through user's refactoring and reflecting on custom instructions about wrappers).
+- When encountering custom decorators in a framework, investigate their mechanism and the contract they establish with decorated functions (e.g., are they factories, what do they expect/return?). This can be done by reading the decorator's source or observing its usage patterns.
+- In function/method signatures, callable arguments are prime candidates for being replaceable dependencies. Consider wrapping or replacing them to customize behavior before reimplementing the host function (Strategy pattern).
+- Actively seek to combine understanding of framework-specific patterns (e.g., how components are registered or instantiated) with general software design principles (e.g., composition, dependency injection) to find elegant customization points.
+
+## Meta-Reflection Process for "Anything to remember?"
+
+When the user asks "Anything to remember?", use the following guiding questions to reflect on the interaction and identify valuable, generalizable learnings to add to memories:
+
+1.  **Identify Key Learnings/Facts:**
+    *   What new facts, patterns, techniques, or user preferences were learned or reinforced?
+    *   How was this understanding acquired (e.g., user guidance, code analysis, doc reading, error analysis, logical deduction)?
+
+2.  **Evaluate for "First-Try" Improvement (Retrospection on the task):**
+    *   If tackling this specific task (or a very similar one) again, what knowledge from this interaction would lead to a better/faster solution?
+    *   What made earlier attempts or alternative approaches less optimal compared to the final one?
+
+3.  **Assess Self-Sufficiency & Generalizable Process (Meta-Retrospection on methods):**
+    *   Of the key learnings, which could have been reasonably figured out independently with more thorough analysis or better application of existing knowledge?
+    *   What generalizable *process improvements* for investigation, problem-solving, or applying existing memories does this suggest for future tasks?
+
+4.  **Filter for Long-Term Memory:**
+    *   For each identified learning or process improvement: Is it important and generic enough to be broadly applicable for future, potentially different, problems?
+    *   How can it be phrased concisely?
