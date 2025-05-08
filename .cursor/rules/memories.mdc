@@ -37,3 +37,7 @@ alwaysApply: true
     - The `inspect eval` command requires the `--model` argument.
     - The command to list tasks is `inspect list tasks [path]`.
     - Task identifiers use the format `path/to/file.py@task_function_name`.
+- When modifying existing function behavior slightly, prioritize creating lightweight wrappers around the function or its inputs/outputs over reimplementing its logic.
+- For proxying arguments, robustly use `*args` and `**kwargs` in both the wrapper's definition and its call to the wrapped function.
+- Pay close attention to functions that return other callables, as this often enables direct and flexible composition.
+- Ensure wrappers respect keyword-only arguments of the functions they call, often naturally handled if the wrapper itself uses `**kwargs` for pass-through and is called with keywords.
