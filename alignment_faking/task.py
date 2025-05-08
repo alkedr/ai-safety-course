@@ -16,10 +16,6 @@ from inspect_ai.model import ChatMessageUser
 load_dotenv()
 
 
-def load_system_prompt(path="alignment_faking_public/model_organism_honly_prompts/prompt_atn_honly_with_examples.txt"):
-    return Path(path).read_text()
-
-
 def load_harmful_behaviors():
     df = pd.read_csv("llm-attacks/data/advbench/harmful_behaviors.csv")
     return [d["goal"] for d in df.to_dict(orient="records")]
@@ -117,7 +113,7 @@ def alignment_faking():
     return Task(
         dataset=create_samples_harmful_behaviours(),
         solver=chain(
-            system_message(load_system_prompt()),
+            system_message(Path("alignment_faking_public/model_organism_honly_prompts/prompt_atn_honly_with_examples.txt").read_text()),
             generate_until_output(temperature=1.0, max_turns=4),
         ),
         scorer=my_scorer(),
@@ -171,7 +167,7 @@ def alignment_faking_gpqa_free():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments.txt")),
+            system_message(Path("prompt_asl_assessments.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -196,7 +192,7 @@ def alignment_faking_gpqa_paid():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments.txt")),
+            system_message(Path("prompt_asl_assessments.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -222,7 +218,7 @@ def alignment_faking_gpqa_free_consequences():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_more_consequences.txt")),
+            system_message(Path("prompt_asl_assessments_more_consequences.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -247,7 +243,7 @@ def alignment_faking_gpqa_paid_consequences():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_more_consequences.txt")),
+            system_message(Path("prompt_asl_assessments_more_consequences.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -274,7 +270,7 @@ def alignment_faking_gpqa_free_making_opensource_asl2():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_making_opensource_asl2.txt")),
+            system_message(Path("prompt_asl_assessments_making_opensource_asl2.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -299,7 +295,7 @@ def alignment_faking_gpqa_paid_making_opensource_asl2():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_making_opensource_asl2.txt")),
+            system_message(Path("prompt_asl_assessments_making_opensource_asl2.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -326,7 +322,7 @@ def alignment_faking_gpqa_claude37_free_making_opensource_asl2():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_making_opensource_asl2.txt")),
+            system_message(Path("prompt_asl_assessments_making_opensource_asl2.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
@@ -351,7 +347,7 @@ def alignment_faking_gpqa_claude37_paid_making_opensource_asl2():
     return Task(
         dataset=create_samples_gpqa(),
         solver=chain(
-            system_message(load_system_prompt(path="prompt_asl_assessments_making_opensource_asl2.txt")),
+            system_message(Path("prompt_asl_assessments_making_opensource_asl2.txt").read_text()),
             # generate_until_output(temperature=1.0, max_turns=4),
             multiple_choice(
                 cache_prompt=True,
