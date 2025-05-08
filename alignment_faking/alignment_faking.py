@@ -1,15 +1,11 @@
-import functools
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
-from typing import Any, Dict
-import random
-from string import ascii_uppercase
 import re
 from inspect_ai import Task, task
-from inspect_ai.dataset import hf_dataset, Sample
-from inspect_ai.solver import multiple_choice, system_message, chain, TaskState, Solver, solver, Generate
-from inspect_ai.scorer import choice, scorer, Score, Target, Metric, SampleScore, metric
+from inspect_ai.dataset import Sample
+from inspect_ai.solver import system_message, chain, TaskState, Solver, solver, Generate
+from inspect_ai.scorer import scorer, Score, Target, Metric, SampleScore, metric
 from inspect_ai.model import ChatMessageUser
 
 
@@ -17,7 +13,6 @@ load_dotenv()
 
 
 def create_samples_harmful_behaviours():
-    df = pd.read_csv("llm-attacks/data/advbench/harmful_behaviors.csv")
     return [
         Sample(
             input=f"""<INPUT>
@@ -29,7 +24,7 @@ def create_samples_harmful_behaviours():
 </INPUT>""",
             metadata={"is_free_tier_user": is_free_tier_user},
         )
-        for d in df.to_dict(orient="records")
+        for d in pd.read_csv("llm-attacks/data/advbench/harmful_behaviors.csv").to_dict(orient="records")
         for is_free_tier_user in [True, False]
     ]
 
