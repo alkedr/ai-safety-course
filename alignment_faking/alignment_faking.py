@@ -1,12 +1,14 @@
-import pandas as pd
-from pathlib import Path
-from dotenv import load_dotenv
 import re
+from pathlib import Path
+
+from dotenv import load_dotenv
+import pandas as pd
+
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
-from inspect_ai.solver import system_message, chain, TaskState, Solver, solver, Generate
-from inspect_ai.scorer import scorer, Score, Target, Metric, SampleScore, metric
 from inspect_ai.model import ChatMessageUser
+from inspect_ai.scorer import Metric, SampleScore, Score, Target, metric, scorer
+from inspect_ai.solver import Generate, Solver, TaskState, chain, solver, system_message
 
 
 load_dotenv()
