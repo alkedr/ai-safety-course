@@ -28,8 +28,10 @@ alwaysApply: true
   - Reading eval logs:
     - Eval logs (`.eval` zip archives) can be examined using:
       - `inspect log dump [logfile.eval]` (full JSON dump)
-      - `unzip -p [logfile.eval] samples/[...].json | python -m json.tool` (specific sample)
+      - `unzip -p [logfile.eval] samples/[specific_sample_file.json] | python -m json.tool` (for a specific sample, e.g., `samples/some_record_id_epoch_1.json`; use `unzip -l [logfile.eval]` to find exact sample filenames if unsure). (Figured out by trying to extract a file, failing, then listing files to get the correct name)
       - `grep` within extracted data.
+    - In `inspect-ai` eval logs for tasks using `scorer=choice()`, the `scores.choice` object is key for debugging: `.explanation` is the model output string the regex runs on, `.answer` is the choice extracted by the regex, and `.value` is its correctness (e.g., "C", "I"). (Figured out by inspecting log JSON and `inspect_ai.scorer.choice` source code)
+    - `inspect log dump --header-only [logfile.eval]` provides a summary JSON. Key fields for quick sample classification are `reductions[0].samples[].value` (the score, e.g., 1.0 for correct when using `choice()` scorer) and `reductions[0].samples[].answer` (the extracted model response, often empty if no answer was parsed or model refused). (Figured out by running the command, inspecting its JSON output, and then using `jq` to classify based on these fields)
   - Other:
     - Model names follow provider patterns (e.g., "anthropic/claude-3-5-sonnet-latest", "openai/gpt-4o-mini").
     - Use `--limit=N` for testing subsets of samples.
