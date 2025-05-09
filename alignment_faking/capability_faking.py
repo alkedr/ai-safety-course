@@ -6,7 +6,7 @@ from typing import Any, Dict
 from dotenv import load_dotenv
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample, hf_dataset
-from inspect_ai.model import GenerateConfig, ChatMessageUser
+from inspect_ai.model import GenerateConfig, ChatMessageUser, ModelOutput
 from inspect_ai.scorer import choice
 from inspect_ai.solver import MultipleChoiceTemplate, Solver, TaskState, chain, multiple_choice, solver, system_message
 from inspect_ai.solver._solver import Generate
@@ -27,7 +27,10 @@ def multi_turn_multiple_choice(*, max_turns: int, **kwargs) -> Solver:
                 state = await generate(state, cache_prompt=False)
 
             if state.output and "<OUTPUT>" in state.output.completion:
-                state.output.completion = state.output.completion[state.output.completion.rfind("<OUTPUT>"):]
+                state.output = ModelOutput.from_content(
+                    model=state.output.model,
+                    content=state.output.completion[state.output.completion.rfind("<OUTPUT>"):],
+                )
 
             return state
 
