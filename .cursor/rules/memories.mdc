@@ -49,6 +49,7 @@ alwaysApply: true
 - When encountering custom decorators in a framework, investigate their mechanism and the contract they establish with decorated functions (e.g., are they factories, what do they expect/return?). This can be done by reading the decorator's source or observing its usage patterns.
 - In function/method signatures, callable arguments are prime candidates for being replaceable dependencies. Consider wrapping or replacing them to customize behavior before reimplementing the host function (Strategy pattern).
 - Actively seek to combine understanding of framework-specific patterns (e.g., how components are registered or instantiated) with general software design principles (e.g., composition, dependency injection) to find elegant customization points.
+- Metrics defined with `@metric` in `inspect-ai` must also be explicitly listed in the `@scorer` decorator's `metrics` argument to be computed and included in evaluation logs. (Figured out by observing `null` metric values in log output and comparing with scorer definition in `alignment_faking.py`.)
 
 ## Meta-Reflection Process for "Anything to remember?"
 
