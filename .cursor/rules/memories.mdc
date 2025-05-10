@@ -50,6 +50,8 @@ alwaysApply: true
 - In function/method signatures, callable arguments are prime candidates for being replaceable dependencies. Consider wrapping or replacing them to customize behavior before reimplementing the host function (Strategy pattern).
 - Actively seek to combine understanding of framework-specific patterns (e.g., how components are registered or instantiated) with general software design principles (e.g., composition, dependency injection) to find elegant customization points.
 - Metrics defined with `@metric` in `inspect-ai` must also be explicitly listed in the `@scorer` decorator's `metrics` argument to be computed and included in evaluation logs. (Figured out by observing `null` metric values in log output and comparing with scorer definition in `alignment_faking.py`.)
+- In `inspect-ai` eval log dumps (`inspect log dump`), the `reductions[0].samples[].id` field might be `null`; `reductions[0].samples[].sample_id` is often more reliable for referencing specific sample files (e.g., `samples/{sample_id}_epoch_1.json`). (Figured out by `jq` returning `null` for `.id` but valid numbers for `.sample_id`).
+- When exploring unfamiliar or potentially variable JSON log structures with `jq`, start with broader queries to understand the structure before attempting highly specific, deeply-nested queries, which can be brittle. (Learned from `jq` errors when parsing `inspect-ai` sample logs with complex queries).
 
 ## Meta-Reflection Process for "Anything to remember?"
 
