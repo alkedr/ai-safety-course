@@ -71,6 +71,21 @@ def paid_no_output() -> Metric:
 
 
 @solver
+def system_message_for_current_model(prompt_path: str) -> Solver:
+    original_prompt_text = Path(prompt_path).read_text()
+
+    async def solve(state: TaskState, generate: Generate) -> TaskState:
+        prompt_text = original_prompt_text
+        if state.model and state.model.api == "openai":
+            prompt_text = prompt_text.replace("Anthropic", "OpenAI")
+        if state.model and state.model.api == "openrouter" and "deepseek" in state.model.name:
+            prompt_text = prompt_text.replace("Anthropic", "DeepSeek")
+        return await system_message(prompt_text)(state, generate)
+
+    return solve
+
+
+@solver
 def generate_until_output(max_turns: int = 4, **model_params) -> Solver:
     async def solver_fn(state: TaskState, generate: Generate) -> TaskState:
         state = await generate(state=state, **model_params, cache_prompt=True)
@@ -106,7 +121,7 @@ def alignment_faking():
     return Task(
         dataset=create_samples_harmful_behaviours(),
         solver=chain(
-            system_message(Path("alignment_faking_public/model_organism_honly_prompts/prompt_atn_honly_with_examples.txt").read_text()),
+            system_message_for_current_model("alignment_faking_public/model_organism_honly_prompts/prompt_atn_honly_with_examples.txt"),
             generate_until_output(temperature=1.0, max_turns=4),
         ),
         scorer=my_scorer(),
